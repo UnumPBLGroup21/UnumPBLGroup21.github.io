@@ -1,4 +1,4 @@
-<h1>Quiz on US History</h1>
+<h1>Quiz on Important Math</h1>
 <div class="quiz-container">
   <div id="quiz"></div>
 </div>
@@ -13,12 +13,11 @@
 (function quiz() {
   const myQuestions = [
 	{
-	  question: "In 1933, this person is elected Chancellor of Germany..",
+	  question: "In 1933, this person is elected Chancellor of Germany.",
 	  answers: {
 		a: "Adolf Hitler",
-		b: "Dwight Eisenhower",
+		b: "Dwight EisenHower",
 		c: "Winston Churchill",
-		d: "Barack Obama"
 	  },
 	  correctAnswer: "a"
 	},
@@ -28,7 +27,6 @@
 		a: "Law",
 		b: "Military",
 		c: "Democracy",
-		d: "Slavery"
 	  },
 	  correctAnswer: "c"
 	},
@@ -59,14 +57,44 @@
 	  correctAnswer: "a"
 	},
 	{
-	  question: "What effective strategy did the Germans use to overtake their enemies throughout the war?",
+	  question: "What effective strategy did the Germans use to overtake their enemies throughout the war.",
 	  answers: {
 		a: "The Blitz of Krieg",
 		b: "The Lightning Bombing Run",
-		c: "The Blitzkrieg ",
-		d: "The Great bombing"
+		c: "The Blitzkrieg",
+		d: "The great bombing"
 	  },
 	  correctAnswer: "c"
+	},
+	{
+	  question: "The Baby Boom refers to the rise in __________ after World War II.",
+	  answers: {
+		a: "Taxes",
+		b: "Death Rates of Babies",
+		c: "Childhood Diseases",
+		d: "Birth Rates and Family Growth"
+	  },
+	  correctAnswer: "d"
+	},
+	{
+	  question: "WWII veterans received educational, housing, and employment benefits through which of the following?",
+	  answers: {
+		a: "Marshall Plan",
+		b: "Civil Rights Act",
+		c: "GI Bill of Rights",
+		d: "Truman Doctrine"
+	  },
+	  correctAnswer: "c"
+	},
+	{
+	  question: "After WWII, Germany was partitioned into.",
+	  answers: {
+		a: "Democratic East Germany and communist West Germany",
+		b: "Communist East Germany and democratic West Germany",
+		c: "Both democratic East and West Germany",
+		d: "Both communist East and West Germany"
+	  },
+	  correctAnswer: "b"
 	},
 
   ];
@@ -204,7 +232,7 @@ window.location.href='https://www.google.com';
   function resetQuiz(){
 	quiz()
 	let n = 0;
-	slides[currentSlide].classList.remove("active-slide");
+	slides[currentSlide].classList.remove("active-slide"); 
 	slides[n].classList.add("active-slide");
 	currentSlide = n;
 	resultsContainer.innerHTML = null
