@@ -1,0 +1,316 @@
+<h1>Quiz on History</h1>
+<div class="quiz-container">
+  <div id="quiz"></div>
+</div>
+<button id="previous">Previous Question</button>
+<button id="next">Next Question</button>
+<button id="submit">Submit Quiz</button>
+<button id="explain">Explanations</button>
+<button id="reset">Reset Quiz</button>
+<div id="results"></div>
+
+<script>
+(function quiz() {
+  const myQuestions = [
+	{
+	  question: "In 1933, this person is elected Chancellor of Germany",
+	  answers: {
+		a: "Adolf Hitler",
+		b: "Dwight Eisenhower",
+		c: "Winston Churchill",
+		d: "Barack Obama"
+	  },
+	  correctAnswer: "a"
+	},
+	{
+	  question: "What did Hitler abolish in order to become a dictator?",
+	  answers: {
+		a: "Law",
+		b: "Military",
+		c: "Democracy",
+		d: "Slavery"
+	  },
+	  correctAnswer: "c"
+	},
+	{
+	  question: "In August 1939, these two countries sign a non-aggression pact, secretly agreeing to invade Poland and share it.",
+	  answers: {
+		a: "Germany and United States",
+		b: "Germany and Italy ",
+		c: "Germany and Russian",
+		d: "None of the Above"
+	  },
+	  correctAnswer: "c"
+	},
+	{
+	  question: "True or False? So many bombs were dropped on Manchester, England that the capital had to be moved to London.",
+	  answers: {
+		a: "True",
+		b: "False",
+	  },
+	  correctAnswer: "b"
+	},
+	{
+	  question: "True or False? So many bombs were dropped on Manchester, England that the capital had to be moved to London.",
+	  answers: {
+		a: "True",
+		b: "False",
+	  },
+	  correctAnswer: "b"
+	},
+	{
+	  question: "What effective strategy did the Germans use to overtake their enemies throughout the war.",
+	  answers: {
+		a: "The Blitz of Krieg",
+		b: "The Lightning Bombing Run",
+		c: "The Blitzkrieg ",
+		d: "The Great bombing"
+	  },
+	  correctAnswer: "c"
+	},
+	{
+	  question: "The "Baby Boom" refers to the rise in ____________ after World War II. ",
+	  answers: {
+		a: "Taxes",
+		b: "Death Rates of Babies",
+		c: "Childhood Diseases",
+		d: "Birth Rates and Family Growth"
+	  },
+	  correctAnswer: "d"
+	},
+	{
+	  question: "WWII veterans received educational, housing, and employment benefits through which of the following?",
+	  answers: {
+		a: "Marshall Plan",
+		b: "Civil Rights Act",
+		c: "GI Bill of Rights",
+		d: "Truman Doctrine"
+	  },
+	  correctAnswer: "c"
+	},
+	{
+	  question: "After WWII, Germany was partitioned into",
+	  answers: {
+		a: "Democratic East Germany and communist West Germany",
+		b: "Communist East Germany and democratic West Germany",
+		c: "Both democratic East and West Germany",
+		d: "Both communist East and West Germany"
+	  },
+	  correctAnswer: "b"
+	},
+
+
+  ];
+
+  function buildQuiz() {
+	// we'll need a place to store the HTML output
+	const output = [];
+
+	// for each question...
+	myQuestions.forEach((currentQuestion, questionNumber) => {
+	  // we'll want to store the list of answer choices
+	  const answers = [];
+
+	  // and for each available answer...
+	  for (letter in currentQuestion.answers) {
+		// ...add an HTML radio button
+		answers.push(
+		  `<label>
+			 <input type="radio" name="question${questionNumber}" value="${letter}">
+			  ${letter} :
+			  ${currentQuestion.answers[letter]}
+		   </label>`
+		);
+	  }
+
+	  // add this question and its answers to the output
+	  output.push(
+		`<div class="slide">
+		   <div class="question"> ${currentQuestion.question} </div>
+		   <div class="answers"> ${answers.join("")} </div>
+		 </div>`
+	  );
+	});
+
+	// finally combine our output list into one string of HTML and put it on the page
+	quizContainer.innerHTML = output.join("");
+  }
+
+  function showResults() {
+	// gather answer containers from our quiz
+	const answerContainers = quizContainer.querySelectorAll(".answers");
+
+	// keep track of user's answers
+	var numCorrect = 0;
+
+	// for each question...
+	myQuestions.forEach((currentQuestion, questionNumber) => {
+	  // find selected answer
+	  const answerContainer = answerContainers[questionNumber];
+	  const selector = `input[name=question${questionNumber}]:checked`;
+	  const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+	  // if answer is correct
+	  if (userAnswer === currentQuestion.correctAnswer) {
+		// add to the number of correct answers
+		numCorrect++;
+		// color the answers green
+		answerContainers[questionNumber].style.color = "lightgreen";
+	  } else {
+		// if answer is wrong or blank
+		// color the answers red
+		answerContainers[questionNumber].style.color = "red";
+	  }
+	});
+
+	// show number of correct answers out of total
+	resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+}
+
+function explanation(){
+if (window.confirm('click "Ok" for explanations.')) 
+{
+window.location.href='https://www.google.com';
+};
+}
+
+  function showSlide(n) {
+	slides[currentSlide].classList.remove("active-slide");
+	slides[n].classList.add("active-slide");
+	currentSlide = n;
+	
+	if (currentSlide === 0) {
+	  previousButton.style.display = "none";
+	} else {
+	  previousButton.style.display = "inline-block";
+	}
+	
+	if (currentSlide === slides.length - 1) {
+	  nextButton.style.display = "none";
+	  submitButton.style.display = "inline-block";
+	} else {
+	  nextButton.style.display = "inline-block";
+	  submitButton.style.display = "none";
+	}
+	if (currentSlide === slides.length - 1) {
+	  resetButton.style.display = "inline-block";
+		explainButton.style.display = "inline-block";
+	} else {
+	  resetButton.style.display = "none";
+		explainButton.style.display = "none";
+	}
+
+  }
+  function showNextSlide() {
+	showSlide(currentSlide + 1);
+  }
+
+  function showPreviousSlide() {
+	showSlide(currentSlide - 1);
+  }
+
+  const quizContainer = document.getElementById("quiz");
+  const resultsContainer = document.getElementById("results");
+  const submitButton = document.getElementById("submit");
+  const resetButton = document.getElementById("reset");
+  // display quiz right away
+  buildQuiz();
+
+  const previousButton = document.getElementById("previous");
+  const nextButton = document.getElementById("next");
+  const explainButton = document.getElementById("explain");
+  const slides = document.querySelectorAll(".slide");
+  let currentSlide = 0;
+
+  showSlide(0);
+
+  // on submit, show results
+  submitButton.addEventListener("click", showResults);
+  nextButton.addEventListener("click", showNextSlide);
+
+  previousButton.addEventListener("click", showPreviousSlide);
+  explainButton.addEventListener("click", explanation);
+  resetButton.addEventListener("click", resetQuiz);
+  
+  function resetQuiz(){
+	quiz()
+	let n = 0;
+	slides[currentSlide].classList.remove("active-slide");
+	slides[n].classList.add("active-slide");
+	currentSlide = n;
+	resultsContainer.innerHTML = null
+  }
+  
+})();
+</script>
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Work+Sans:300,600);
+
+body{
+	font-size: 20px;
+	font-family: 'Trebuchet MS', sans-serif;
+	color: #333;
+  font-weight: 300;
+  text-align: center;
+  background-color: lightgray;
+}
+h1{
+  font-weight: 200;
+  margin: 0px;
+  padding: 15px;
+  font-size: 25px;
+  background-color: crimson;
+  color: #fff;
+}
+.question{
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.answers {
+  margin-bottom: 30px;
+  text-align: left;
+  display: inline-block;
+}
+.answers label{
+  display: block;
+  margin-bottom: 13px;
+}
+button{
+  font-family: 'arial', sans-serif;
+	font-size: 22px;
+	background-color: green;
+	color: #fff;
+	border: 0px;
+	border-radius: 5px;
+	padding: 15px;
+	cursor: pointer;
+	margin-bottom: 50px;
+}
+button:hover{
+	background-color: green;
+}
+
+
+
+
+
+.slide{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.active-slide{
+  opacity: 1;
+  z-index: 2;
+}
+.quiz-container{
+  position: relative;
+  height: 200px;
+  margin-top: 40px;
+}
+</style>
